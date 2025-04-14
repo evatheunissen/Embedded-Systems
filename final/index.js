@@ -8,7 +8,6 @@ const onoff = require('onoff');
 const i2cbus = require('i2c-bus');
 
 const { Client, Message } = require('azure-iot-device');
-const { Mqtt } = require('azure-iot-device-mqtt');
 const Protocol = require('azure-iot-device-mqtt').Mqtt;
 const { connectionString } = require('./settings.js');
 
@@ -106,7 +105,7 @@ function updateTwinAfterTemp(temp) {
          console.log(`error updating twin reported properties: ${JSON.stringify(error)}`);
       } else {
          console.log(`twin reported properties updated: ${JSON.stringify({ alarm: twinSaved.properties.reported.alarm })}`);
-         cur_alarm_str = twinSaved.properties.reported.alarm;
+         cur_alarm_str = twinSaved.properties.reported.alarm.toString();
          io.emit('twin property alarm', cur_alarm_str);
       }
    });
