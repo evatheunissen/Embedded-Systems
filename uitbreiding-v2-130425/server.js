@@ -14,7 +14,7 @@ console.log(`Using event hub consumer group [${eventHubConsumerGroup}]`);
 console.log(`Using EventHub connection string [${eventHubConnectionString}]`);
 
 const { MongoClient } = require("mongodb");
-const uri = "***REMOVED***";
+const uri = "";
 const client = new MongoClient(uri);
 const dbName = "tempDatabase";
 const collectionName = "tempLogs";
@@ -73,8 +73,7 @@ const eventHubReader = new EventHubReader(eventHubConsumerGroup, eventHubConnect
         Date: date || Date.now().toISOString(),
         Device: deviceId + ' - ' + message.deviceId
       };
-
-      //io.emit('msg', payload);
+      
       await collection.insertOne(payload);
     } catch (err) {
       console.error("Error: [%s] from [%s].", err, message);
